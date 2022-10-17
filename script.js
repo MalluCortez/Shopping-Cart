@@ -37,6 +37,7 @@ const createCustomElement = (element, className, innerText) => {
  * @param {string} product.thumbnail - URL da imagem do produto.
  * @returns {Element} Elemento de produto.
  */
+
 const createProductItemElement = ({ id, title, thumbnail }) => {
   const section = document.createElement('section');
   section.className = 'item';
@@ -47,6 +48,15 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
+};
+
+const fetchProductsResults = async () => {
+  const allInfosProducts = await fetchProducts('computador');
+  const itensSection = document.querySelector('.items');
+  const infoProducts = allInfosProducts.map((info) => createProductItemElement(info))
+    .forEach((e) => {
+      itensSection.appendChild(e);
+    });
 };
 
 /**
@@ -72,4 +82,7 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => { };
+window.onload = () => {
+  console.log(fetchProducts('computador'));
+  fetchProductsResults();
+};
