@@ -8,14 +8,18 @@ describe('1 - Teste a função fetchProducts', () => {
   });
 
   it('Verifica se quando a função `fetchProducts` recebe computador como parametro, o fetch é chamado', async () => {
-    const fetchProductComputer = await fetchProducts('computador');
-    const urlComputer = 'https://api.mercadolibre.com/sites/MLB/search?q=computador'
-    expect(fetch).toHaveBeenCall();
-    expect(fetch).toHaveBeenCalledWith(urlComputer);
-    expect(fetchProductComputer).toEqual(computadorSearch);
+    await fetchProducts('computador');
+    expect(fetch).toHaveBeenCalled();
   });
-
-  it('Verifica se quando a função `fetchProducts` não recebe argumento, retorna um erro',async () => {
-    expect(await fetchProducts()).toThrow('You must provide an url');
+  it('Verifica se quando a função `fetchProducts` recebe computador como parametro, a função utiliza o endpoint correto', async () => {
+    await fetchProducts('computador')
+    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  });
+  it('Verifica se quando a função `fetchProducts` recebe computador como parametro,retorna uma estrtutura igual ao objeto computadorSearch', async () => {
+    expect(await fetchProducts('computador')).toEqual(computadorSearch);
+  });
+  it('Verifica se quando a função `fetchProducts` não recebe argumento, retorna um erro', async () => {
+    const failRequest = await fetchProducts();
+    expect(failRequest).toEqual(new Error ('You must provide an url!'));
   });
 });
