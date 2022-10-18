@@ -52,8 +52,9 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 
 const fetchProductsResults = async () => {
   const allInfosProducts = await fetchProducts('computador');
+  const allInfosProductsResults = allInfosProducts.results;
   const itensSection = document.querySelector('.items');
-  const infoProducts = allInfosProducts.map((info) => createProductItemElement(info))
+  const infoProducts = allInfosProductsResults.map((info) => createProductItemElement(info))
     .forEach((e) => {
       itensSection.appendChild(e);
     });
@@ -85,4 +86,5 @@ const createCartItemElement = ({ id, title, price }) => {
 window.onload = () => {
   console.log(fetchProducts('computador'));
   fetchProductsResults();
+  console.log(fetchItem('MLB1615760527'));
 };
