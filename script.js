@@ -75,6 +75,10 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
+const cartItemClickListener = () => {
+  console.log('clicou');
+};
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -83,8 +87,22 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => {
-  console.log(fetchProducts('computador'));
-  fetchProductsResults();
-  console.log(fetchItem('MLB1615760527'));
+const itemRequisition = async (event) => {
+  const id = event.target.parentNode.firstChild.innerText;
+  const fetchItemObj = await fetchItem(id);
+  const creatCartItem = createCartItemElement(fetchItemObj);
+  const ItemsCart = document.querySelector('.cart__items');
+  ItemsCart.appendChild(creatCartItem);
+};
+
+const addButtomClick = () => {
+  const buttom = document.querySelectorAll('.item__add');
+  buttom.forEach((e) => {
+    e.addEventListener('click', itemRequisition);
+  });
+};
+
+window.onload = async () => {
+  await fetchProductsResults();
+  await addButtomClick();
 };
