@@ -107,3 +107,7 @@ window.onload = async () => {
   await fetchProductsResults();
   await addButtomClick();
 };
+
+if (typeof module !== 'undefined') {
+  module.exports = itemRequisition;
+}
