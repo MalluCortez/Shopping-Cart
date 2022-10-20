@@ -8,6 +8,7 @@
  * @param {string} imageSource - URL da imagem.
  * @returns {Element} Elemento de imagem do produto.
  */
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -88,12 +89,23 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
+const saveLocalStorage = () => {
+  const cartItem = document.querySelectorAll('.cart__item');
+  const arrayCartItemInfo = [];
+  cartItem.forEach((e) => {
+    arrayCartItemInfo.push(e.innerText);
+  });
+  console.log(arrayCartItemInfo);
+  saveCartItems(JSON.stringify(arrayCartItemInfo));
+};
+
 const itemRequisition = async (event) => {
   const id = event.target.parentNode.firstChild.innerText;
   const fetchItemObj = await fetchItem(id);
   const creatCartItem = createCartItemElement(fetchItemObj);
   const ItemsCart = document.querySelector('.cart__items');
   ItemsCart.appendChild(creatCartItem);
+  saveLocalStorage();
 };
 
 const addButtomClick = () => {
@@ -105,7 +117,8 @@ const addButtomClick = () => {
 
 window.onload = async () => {
   await fetchProductsResults();
-  await addButtomClick();
+  addButtomClick();
+  /* await saveLocalStorage(); */
 };
 
 if (typeof module !== 'undefined') {

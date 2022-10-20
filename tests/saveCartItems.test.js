@@ -10,8 +10,8 @@ describe('3 - Teste a função saveCartItems', () => {
   });
 
   it('Verifica se quando a função `saveCartItems` recebe `cartItem` como parametro, o método localStorage.setItem é chamado', async () => {
-    const cartItem = 'Informações do produto';
-    await saveCartItems(cartItem);
-    expect(localStorage.setItem).toHaveBeenCalledWith('Product', cartItem);
+    const infoProduct = 'Informações do produto';
+    await saveCartItems(infoProduct);
+    expect(localStorage.setItem).toHaveBeenCalledWith('cartItems', "Informações do produto");
   });
 });

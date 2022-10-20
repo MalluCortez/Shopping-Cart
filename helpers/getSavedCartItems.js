@@ -1,5 +1,5 @@
 const getSavedCartItems = () => {
-const getItem = JSON.stringify(localStorage.getItem('cartItems'));
+const getItem = (localStorage.getItem('cartItems'));
 return getItem;
 };
 
