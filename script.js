@@ -16,7 +16,7 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
-/**
+/** 
  * Função responsável por criar e retornar qualquer elemento.
  * @param {string} element - Nome do elemento a ser criado.
  * @param {string} className - Classe do elemento.
@@ -128,10 +128,29 @@ const addButtomClick = () => {
   });
 };
 
+const creatLocalPrice = () => {
+  const cart = document.querySelector('.cart');
+  const price = document.createElement('p');
+  price.className = 'total-price';
+  cart.appendChild(price);
+};
+
+const cleanCartItem = () => {
+  const cartItens = document.querySelectorAll('.cart__item');
+  cartItens.forEach((e) => e.remove());
+};
+
+const cleanCart = () => {
+  const buttomClean = document.querySelector('.empty-cart');
+  buttomClean.addEventListener('click', cleanCartItem);
+};
+
 window.onload = async () => {
   await fetchProductsResults();
   addButtomClick();
   getLocalStorage();
+  await creatLocalPrice();
+  cleanCart();
 };
 
 if (typeof module !== 'undefined') {
