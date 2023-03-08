@@ -145,12 +145,21 @@ const cleanCart = () => {
   buttomClean.addEventListener('click', cleanCartItem);
 };
 
+const totalPrice = () => {
+  const infoCartItems = JSON.parse(localStorage.getItem('cartItems'));
+  const price = (infoCartItems.map((e) => e.split('$'))).map((p) => p[1]);
+  const sumPrice = price.reduce((acc, curr) => acc + parseFloat(curr), 0);
+  const totalPriceItens = document.querySelector('.total-price');
+  totalPriceItens.innerText = sumPrice.toFixed(2);
+};
+
 window.onload = async () => {
   await fetchProductsResults();
   addButtomClick();
   getLocalStorage();
   await creatLocalPrice();
   cleanCart();
+  totalPrice();
 };
 
 if (typeof module !== 'undefined') {
